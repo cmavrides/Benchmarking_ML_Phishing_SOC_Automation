@@ -77,11 +77,11 @@ logs/
 *.log
 
 # Data artifacts
-data/
+/data/
 !data/.gitkeep
-reports/
+/reports/
 !reports/.gitkeep
-reports/plots/
+/reports/plots/
 !reports/plots/.gitkeep
 
 # MLflow

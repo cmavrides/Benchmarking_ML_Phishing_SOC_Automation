@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from phishing_benchmark.utils import ensure_dir
+
 
 @dataclass(slots=True)
 class DefaultConfig:
@@ -57,6 +59,16 @@ class DefaultConfig:
         self.processed_dir = self.data_dir / "processed"
         self.reports_dir = self.project_root / "reports"
         self.cache_dir = self.project_root / ".cache"
+
+        for path in (
+            self.data_dir,
+            self.raw_dir,
+            self.interim_dir,
+            self.processed_dir,
+            self.reports_dir,
+            self.cache_dir,
+        ):
+            ensure_dir(path)
 
     def dataset_paths(self) -> Dict[str, Path]:
         """Return commonly used dataset paths."""
