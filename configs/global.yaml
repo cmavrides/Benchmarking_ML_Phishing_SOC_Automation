@@ -1,0 +1,15 @@
+paths:
+  data_dir: data
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  reports_dir: reports
+  figures_dir: reports/figures
+  results_dir: reports/results
+  artifacts_dir: artifacts
+  best_model_dir: artifacts/best_model
+mlflow:
+  tracking_uri: mlruns
+  experiment_name: phishing-benchmark
+random_seed: 42
+threshold: 0.5
