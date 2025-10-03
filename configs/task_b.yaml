@@ -1,0 +1,18 @@
+include:
+  - configs/global.yaml
+service:
+  host: 0.0.0.0
+  port: 8000
+  threshold: 0.5
+model:
+  type: classical
+  artifact_dir: artifacts/best_model
+  vectorizer_file: vectorizer.pkl
+  model_file: model.pkl
+  config_file: preproc_config.json
+  explain_top_n: 10
+logging:
+  level: INFO
+ioc:
+  mask_in_logs: true
+  max_items: 20

@@ -1,0 +1,27 @@
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt pyproject.toml README.md ./
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install -e .
+
+COPY configs ./configs
+COPY src ./src
+COPY Makefile ./Makefile
+
+ENV MLFLOW_TRACKING_URI=/app/mlruns
+VOLUME ["/app/data", "/app/reports", "/app/artifacts", "/app/mlruns"]
+
+ENTRYPOINT ["python", "-m", "task_a_benchmark.cli"]
+CMD ["--help"]

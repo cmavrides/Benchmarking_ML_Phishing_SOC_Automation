@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phishing Detection Suite</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f7fb;
+        color: #1f2933;
+      }
+      header {
+        background: #1f6feb;
+        color: white;
+        padding: 1.5rem 2rem;
+      }
+      main {
+        padding: 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      textarea, input[type="text"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #cbd5e0;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        background: white;
+      }
+      textarea {
+        min-height: 200px;
+      }
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      button {
+        background: #1f6feb;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      button:disabled {
+        background: #9aa5b1;
+        cursor: not-allowed;
+      }
+      pre {
+        background: #0b253a;
+        color: #f8fafc;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+      }
+      .status {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Phishing Detection SOC Dashboard</h1>
+      <p>Paste an email to classify and extract IOCs.</p>
+    </header>
+    <main>
+      <label for="subject">Subject</label>
+      <input id="subject" type="text" placeholder="Enter email subject" />
+
+      <label for="body">Body</label>
+      <textarea id="body" placeholder="Paste email content or HTML"></textarea>
+
+      <div class="checkbox">
+        <input id="asHtml" type="checkbox" />
+        <label for="asHtml">Body is HTML</label>
+      </div>
+
+      <button id="classifyBtn">Classify</button>
+      <div class="status" id="status"></div>
+
+      <h2>Result</h2>
+      <pre id="result">Awaiting classification…</pre>
+    </main>
+    <script src="/static/main.js"></script>
+  </body>
+</html>

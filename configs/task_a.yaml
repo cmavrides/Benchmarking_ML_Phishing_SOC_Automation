@@ -1,0 +1,58 @@
+include:
+  - configs/global.yaml
+preprocess:
+  use_zefang: true
+  use_cyradar: true
+  lower: true
+  strip_html: true
+  min_length: 5
+  max_length: 5000
+  val_size: 0.1
+  test_size: 0.1
+  seed: 42
+  save_parquet: true
+features:
+  tfidf:
+    max_features: 100000
+    ngram_range: [1, 2]
+    analyzer: word
+    sublinear_tf: true
+  hashing:
+    n_features: 262144
+models:
+  default: lr
+  classical:
+    lr:
+      C: 2.0
+      class_weight: balanced
+      max_iter: 200
+    svm:
+      C: 1.0
+    nb: {}
+    rf:
+      n_estimators: 300
+      max_depth: 20
+    xgb:
+      n_estimators: 500
+      max_depth: 6
+      learning_rate: 0.1
+  transformers:
+    distilbert:
+      model_name: distilbert-base-uncased
+      epochs: 2
+      batch_size: 16
+      learning_rate: 5e-5
+    roberta:
+      model_name: roberta-base
+      epochs: 2
+      batch_size: 16
+      learning_rate: 3e-5
+  llm:
+    zero_shot:
+      provider: openai
+      model: gpt-3.5-turbo-instruct
+    few_shot:
+      provider: openai
+      model: gpt-3.5-turbo
+mlflow:
+  enable: true
