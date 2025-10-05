@@ -1,1 +1,0 @@
-"""SOC automation microservice."""
