@@ -1,90 +1,24 @@
-# Phishing Detection Suite
+# Phishing Detection Kaggle Notebooks
 
-The **Phishing Detection Suite** is a lightweight two-part project that benchmarks traditional ML, transformer, and LLM-based approaches for phishing detection and exposes the best-performing model via a simple SOC automation API and web UI.
+This repository contains Kaggle-ready notebooks for benchmarking phishing detection models and demonstrating a lightweight SOC automation workflow.
 
-## Project Overview
+## Project Structure
 
-- **Task A – Benchmarking:**
-  - Load phishing datasets from `data/zefang_liu.csv` and `data/cyradar.csv`.
-  - Clean and normalize text, combine datasets, and create train/validation/test splits stored under `data/processed/`.
-  - Train baseline ML models (Logistic Regression, Linear SVM, Random Forest, XGBoost) using TF-IDF features and evaluate them alongside a fine-tuned DistilBERT model.
-  - Optionally record zero/few-shot results from an LLM when an `OPENAI_API_KEY` is available.
-  - Persist models, tokenizers, and metrics to the `artifacts/` and `reports/` directories.
+- `TaskA_Benchmark.ipynb` – preprocesses two phishing datasets, trains multiple models (classical ML and transformers), evaluates them, and exports the best-performing artifact bundle to `/kaggle/working/artifacts/`.
+- `TaskB_SOC_Automation.ipynb` – loads the saved artifact bundle and provides an interactive SOC-style triage experience with IOC extraction and explainability helpers.
 
-- **Task B – SOC Automation Prototype:**
-  - Load the best-performing model from Task A.
-  - Provide a FastAPI service that classifies submitted text/emails as phishing or legitimate and extracts basic indicators of compromise (IOCs).
-  - Serve a minimal JavaScript UI for interactive testing of the API.
+## Using the Notebooks on Kaggle
 
-## Repository Structure
+1. Create a **private Kaggle Dataset** that contains both `zefang_liu.csv` and `cyradar.csv`.
+2. Open a new Kaggle notebook, click **Add data → Your Datasets**, and attach your dataset.
+3. In the notebooks, update the dataset slug in the configuration cell so that the CSVs are found at paths like `/kaggle/input/<dataset-slug>/zefang_liu.csv`.
 
-```
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── data/
-│   ├── zefang_liu.csv           # Place raw datasets here (not tracked)
-│   ├── cyradar.csv
-│   └── processed/
-├── artifacts/                   # Saved models and vectorizers
-├── reports/
-│   ├── figures/
-│   └── results/
-└── src/
-    ├── common/
-    ├── task_a_benchmark/
-    └── task_b_soc/
-```
+If you enable internet access on Kaggle, you may set `HF_DOWNLOAD=True` in the configuration cell to fetch the datasets directly from Hugging Face as a fallback.
 
-> **Note:** The raw CSV datasets are not committed to version control. Download or copy them into the `data/` directory before running the pipelines.
+All processed data, models, and reports are written to `/kaggle/working/` so they persist across notebook cells and can be downloaded after execution.
 
-## Getting Started
+### Minimal Run Guide
 
-```bash
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+1. Launch **TaskA_Benchmark.ipynb** on Kaggle, ensure the dataset paths are correct, and run all cells. The notebook saves trained models and processed data to `/kaggle/working/`.
+2. Launch **TaskB_SOC_Automation.ipynb** in the same Kaggle session (or attach the exported artifacts as a dataset) and run all cells to interact with the SOC automation demo.
 
-Ensure the datasets `data/zefang_liu.csv` and `data/cyradar.csv` exist before executing the tasks below.
-
-### Task A: Benchmark Models
-
-```bash
-python src/task_a_benchmark/run_all.py
-```
-
-This command performs the full workflow: loading and merging datasets, preprocessing text, training classical ML models, optionally fine-tuning DistilBERT, and evaluating all models. Outputs include:
-
-- Processed splits under `data/processed/`.
-- Serialized models/vectorizers under `artifacts/`.
-- Metrics and plots under `reports/results/` and `reports/figures/`.
-
-### Task B: Launch SOC Automation API
-
-```bash
-uvicorn src.task_b_soc.api:app --reload
-```
-
-Navigate to `http://127.0.0.1:8000/ui/` to open the minimal UI. Submit sample emails or text snippets to receive predictions and IOC extraction results.
-
-### Optional: LLM Zero/Few-Shot Benchmark
-
-If you have an OpenAI API key, export it before running the pipeline to collect zero/few-shot results:
-
-```bash
-export OPENAI_API_KEY=your_key_here
-python src/task_a_benchmark/train_llm.py
-```
-
-The script writes predictions to `reports/results/llm_predictions.csv` and can be incorporated into further analysis.
-
-## Key Modules
-
-- `src/common/`: Reusable utilities for text cleaning, serialization, and metric calculation.
-- `src/task_a_benchmark/`: Scripts for dataset loading, preprocessing, model training, and evaluation.
-- `src/task_b_soc/`: SOC automation pipeline, enrichment helpers, API definition, and simple UI assets.
-
-## License
-
-This project is provided for educational and prototyping purposes. Review dataset licenses before distributing derived artifacts.
