@@ -1,41 +1,19 @@
 __pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual environments
-.venv/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
 .env
-
-# Data & artifacts
-/data/interim/
-/data/processed/
-/reports/results/
-/reports/figures/
-/mlruns/
-/artifacts/*.bin
-/artifacts/*/checkpoint-*/
-artifacts/best_model/model.safetensors
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Pytest
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Mypy
-.mypy_cache/
-
-# Ruff
-.ruff_cache/
-
-# VSCode & IDEs
-.vscode/
+venv/
 .idea/
-*.swp
-.DS_Store
-
-# Logs
-logs/
-*.log
+.vscode/
+.ipynb_checkpoints/
+artifacts/*
+!artifacts/.gitkeep
+data/*.csv
+data/processed/*
+!data/processed/.gitkeep
+reports/results/*
+!reports/results/.gitkeep
+reports/figures/*
+!reports/figures/.gitkeep
