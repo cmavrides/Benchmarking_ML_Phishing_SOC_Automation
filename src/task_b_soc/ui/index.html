@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phishing Detection Suite</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <style>
+      body {
+        margin: 2rem auto;
+        max-width: 800px;
+      }
+      textarea {
+        min-height: 220px;
+      }
+      #result {
+        margin-top: 1.5rem;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Phishing Detection SOC Prototype</h1>
+      <p>Submit an email or text snippet to classify it and extract simple indicators of compromise.</p>
+      <form id="classify-form">
+        <label for="text">Email/Text</label>
+        <textarea id="text" name="text" required placeholder="Paste email content here..."></textarea>
+        <label>
+          <input type="checkbox" id="is-html" />
+          Treat input as HTML
+        </label>
+        <button type="submit">Classify</button>
+      </form>
+      <section id="result" hidden>
+        <h2>Result</h2>
+        <p><strong>Status:</strong> <span id="label"></span></p>
+        <p><strong>Score:</strong> <span id="score"></span></p>
+        <div id="iocs"></div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+xgboost
+torch
+transformers
+datasets
+tqdm
+beautifulsoup4
+lxml
+fastapi
+uvicorn
+joblib
+matplotlib
+openai
