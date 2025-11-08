@@ -33,4 +33,12 @@ def extract_iocs(text: str) -> Dict[str, List[str]]:
     return iocs
 
 
-__all__ = ["extract_iocs"]
+def summarize_iocs(iocs: Dict[str, List[str]]) -> Dict[str, int]:
+    """Provide lightweight counts for IOC categories."""
+
+    summary = {key: len(values) for key, values in iocs.items()}
+    summary["total"] = sum(summary.values())
+    return summary
+
+
+__all__ = ["extract_iocs", "summarize_iocs"]

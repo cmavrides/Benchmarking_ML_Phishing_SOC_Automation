@@ -28,7 +28,16 @@ def classify(request: ClassifyRequest) -> JSONResponse:
 
     result = pipeline.classify_text(request.text, is_html=request.is_html)
     iocs = enrich.extract_iocs(request.text)
-    payload = {"label": result["label"], "score": result["score"], "iocs": iocs}
+    payload = {
+        "label": result["label"],
+        "score": result["score"],
+        "risk_level": result.get("risk_level"),
+        "confidence": result.get("confidence"),
+        "explanations": result.get("explanations"),
+        "recommendations": result.get("recommendations", []),
+        "iocs": iocs,
+        "ioc_summary": enrich.summarize_iocs(iocs) if iocs else {"total": 0},
+    }
     return JSONResponse(payload)
 
 
