@@ -15,6 +15,22 @@ This repository contains Kaggle-ready notebooks for benchmarking phishing detect
 
 If you enable internet access on Kaggle, you may set `HF_DOWNLOAD=True` in the configuration cell to fetch the datasets directly from Hugging Face as a fallback.
 
+## Local Quickstart
+
+When you run the local benchmarking pipeline, the raw datasets are fetched automatically from Hugging Face if they are not already present under `data/`:
+
+```bash
+python src/task_a_benchmark/run_all.py
+```
+
+To pre-download the CSVs (or refresh them) without training models, run the downloader module directly:
+
+```bash
+python -m src.common.dataset_downloader
+```
+
+Set the optional environment variable `CYRADAR_MAX_ROWS` to limit how many rows are retained from the large CyRadar export during development runs.
+
 All processed data, models, and reports are written to `/kaggle/working/` so they persist across notebook cells and can be downloaded after execution.
 
 ### Minimal Run Guide

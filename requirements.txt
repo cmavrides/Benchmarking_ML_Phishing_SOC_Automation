@@ -13,3 +13,4 @@ uvicorn
 joblib
 matplotlib
 openai
+requests
