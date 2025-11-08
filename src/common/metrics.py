@@ -36,6 +36,16 @@ def compute_classification_metrics(y_true: Iterable[int], y_pred: Iterable[int],
         except ValueError:
             metrics_dict["roc_auc"] = float("nan")
 
+        try:
+            metrics_dict["average_precision"] = metrics.average_precision_score(y_true, y_prob)
+        except ValueError:
+            metrics_dict["average_precision"] = float("nan")
+
+        try:
+            metrics_dict["brier_score"] = metrics.brier_score_loss(y_true, y_prob)
+        except ValueError:
+            metrics_dict["brier_score"] = float("nan")
+
     return metrics_dict
 
 

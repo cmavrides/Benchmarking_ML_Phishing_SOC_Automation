@@ -6,6 +6,8 @@ from typing import Dict, Tuple
 
 import pandas as pd
 
+from src.common.dataset_downloader import ensure_raw_datasets
+
 DATA_DIR = Path("data")
 EXPECTED_COLUMNS = {
     "text": ["text", "body", "email", "message"],
@@ -51,6 +53,8 @@ def _normalize_dataset(path: Path, source_name: str) -> pd.DataFrame:
 
 def load_datasets(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     """Load both datasets and concatenate them into a single DataFrame."""
+
+    ensure_raw_datasets(data_dir)
 
     paths: Dict[str, Path] = {
         "zefang_liu": data_dir / "zefang_liu.csv",
