@@ -5,7 +5,9 @@ xgboost
 torch
 transformers
 datasets
+huggingface_hub
 tqdm
+psutil
 beautifulsoup4
 lxml
 fastapi
